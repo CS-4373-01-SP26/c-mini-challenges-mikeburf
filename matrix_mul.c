@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define INPUT_FILE "mv.txt"
 #define READ_FAILED "Failed to read file\n"
@@ -55,16 +56,23 @@ int main() {
 
     int out_vector[numrows];
 
+    clock_t start = clock();
     for (int r = 0; r < numrows; r++) {
         out_vector[r] = 0;
         for (int c = 0; c < numcols; c++) {
             out_vector[r] += matrix[r][c] * vector[c];
         }
     }
+    clock_t end = clock();
 
+    double seconds = (end - start) / CLOCKS_PER_SEC;
+
+    printf("Resultant vector:\n(");
     for (int i = 0; i < numrows - 1; i++) {
         printf("%d, ", out_vector[i]);
     }
-    printf("%d, ", out_vector[numrows - 1]);
+    printf("%d)\n", out_vector[numrows - 1]);
+    printf("Calculation took %f seconds", seconds);
+
 }
 
