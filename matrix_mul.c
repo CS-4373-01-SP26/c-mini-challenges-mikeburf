@@ -41,7 +41,7 @@ int main() {
     }
 
     if (vecsize != numcols) {
-        printf("Cannot multiply %d by %d matrix with %d-vector\n");
+        printf("Cannot multiply %d by %d matrix with %d-vector\n", numrows, numcols, vecsize);
         return 0;
     }
 
@@ -49,7 +49,7 @@ int main() {
 
     for (int i = 0; i < vecsize; i++) {
         if (fscanf(file_ptr, "%d ", &vector[i]) != 1) {
-            printf("Failed to read file\n");
+            printf(READ_FAILED);
             return 0;
         }
     }
@@ -72,7 +72,8 @@ int main() {
         printf("%d, ", out_vector[i]);
     }
     printf("%d)\n", out_vector[numrows - 1]);
-    printf("Calculation took %f seconds", seconds);
+    printf("Calculation took %f seconds\n", seconds);
+    return 0;
 
 }
 
