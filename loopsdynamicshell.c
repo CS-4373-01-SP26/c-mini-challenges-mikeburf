@@ -40,6 +40,8 @@ void work(int n)
 
   // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
   printf("Column Major: sum = %lf and Clock Ticks are %ld\n", sum, end - start);
+
+  free(arr);
 }
 
 int main(int argc, char **argv)
