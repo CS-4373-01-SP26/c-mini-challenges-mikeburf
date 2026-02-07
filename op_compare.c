@@ -80,6 +80,15 @@ double my_div(double n, double d) {
     return n / d;
 }
 
+double my_sqrt(double x) {
+    return sqrt(x);
+}
+
+double my_sin(double x) {
+    return sin(x);
+}
+
+
 int main() {
 
     double seconds;
@@ -100,14 +109,14 @@ int main() {
     
 
     printf("Benchmarking square root...\n");
-    seconds = benchmark_unary(BENCHMARK_ITERS, sqrt);
+    seconds = benchmark_unary(BENCHMARK_ITERS, my_sqrt);
     avg_seconds = seconds / BENCHMARK_ITERS;
     printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
 
     
 
     printf("Benchmarking sine...\n");
-    seconds = benchmark_unary(BENCHMARK_ITERS, sin);
+    seconds = benchmark_unary(BENCHMARK_ITERS, my_sin);
     avg_seconds = seconds / BENCHMARK_ITERS;
     printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
 
