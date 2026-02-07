@@ -1,4 +1,5 @@
-//PLACE YOUR INCLUDE STATEMENTS HERE
+#include <time.h>
+#include<stdlib.h>
 
 int main(int argc, char **argv) {
   int i,j;
