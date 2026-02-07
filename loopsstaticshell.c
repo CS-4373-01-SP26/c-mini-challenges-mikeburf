@@ -46,6 +46,8 @@ int main(int argc, char **argv)
   int n = 128;
   for (int i = 0; i < 5; i++) {
     printf("For %d by %d matrix...\n", n, n);
+    int arr_size = n * n * sizeof(double);
+    printf("%d\n", arr_size);
     work(n);
     printf("\n");
     n *= 2;
