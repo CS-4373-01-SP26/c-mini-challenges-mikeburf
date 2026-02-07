@@ -9,10 +9,14 @@ void work(int n)
   clock_t end, start;
   double arr[n][n];
 
+  printf("Matrix created\n");
+
   // THIS FILLS THE MATRIX WITH NUMBERS
   for (i = 0; i < n; i++)
     for (j = 0; j < n; j++)
       arr[i][j] = (double)rand() / RAND_MAX;
+
+  printf("matrix filled\n");
 
   sum = 0;
   
