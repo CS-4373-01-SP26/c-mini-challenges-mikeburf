@@ -88,28 +88,28 @@ int main() {
     printf("Benchmarking multiplication...\n");
     seconds = benchmark_binary(BENCHMARK_ITERS, my_mul);
     avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %f seconds per iter\n", BENCHMARK_ITERS, seconds, avg_seconds);
+    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
 
     
 
     printf("Benchmarking division...\n");
     seconds = benchmark_binary(BENCHMARK_ITERS, my_div);
     avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %f seconds per iter\n", BENCHMARK_ITERS, seconds, avg_seconds);
+    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
 
     
 
     printf("Benchmarking square root...\n");
     seconds = benchmark_unary(BENCHMARK_ITERS, sqrt);
     avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %f seconds per iter\n", BENCHMARK_ITERS, seconds, avg_seconds);
+    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
 
     
 
     printf("Benchmarking sine...\n");
     seconds = benchmark_unary(BENCHMARK_ITERS, sin);
     avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %f seconds per iter\n", BENCHMARK_ITERS, seconds, avg_seconds);
+    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
 
     return 0;
 }
