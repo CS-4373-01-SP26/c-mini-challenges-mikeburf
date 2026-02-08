@@ -21,27 +21,28 @@ void work(int n)
 
   sum = 0;
   
+  // row-major work
   start = clock();
   for (i = 0; i < n; i++)   // iterate over rows
     for (j = 0; j < n; j++) // iterate over columns
       sum += arr[i * n + j];
   end = clock();
 
-  // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
+  
   printf("Row Major: sum = %lf and Clock Ticks are %ld\n", sum, end - start);
 
   sum = 0;
 
+  // column major work
   start = clock();
   for (j = 0; j < n; j++) // iterate over columns
     for (i = 0; i < n; i++)   // iterate over rows
       sum += arr[i * n + j];
   end = clock();
 
-  // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
   printf("Column Major: sum = %lf and Clock Ticks are %ld\n", sum, end - start);
 
-  free(arr);
+  free(arr); // free array
 }
 
 int main(int argc, char **argv)

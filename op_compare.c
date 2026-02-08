@@ -3,9 +3,10 @@
 #include<stdio.h>
 #include<time.h>
 
-#define BENCHMARK_ITERS 100000000
-#define ARG_BUFFER_SIZE 4096
+const int BENCHMARK_ITERS = 100000000;
+const int ARG_BUFFER_SIZE = 4096;
 
+// fills a buffer with random integers from 1 to RAND_MAX + 1 (whatever that is)
 void fill_buffer(int* buffer, int size) {
     for (int i = 0; i< size; i++) {
         buffer[i] = rand() + 1; // avoid 0
@@ -22,7 +23,7 @@ double benchmark(int iters, double (*func) (double, double)) {
 
     clock_t total = 0;
 
-    // to avoid huge buffers we do the measuring in chunks
+    // to avoid huge buffers and precision errors we do the measuring in medium-sized chunks
     while(iters_left > 0) {
         // run min(iters_left, ARG_BUFFER_SIZE) iters
         int iters_next = (iters_left < ARG_BUFFER_SIZE) ? iters_left : ARG_BUFFER_SIZE;
@@ -39,8 +40,10 @@ double benchmark(int iters, double (*func) (double, double)) {
         }
         clock_t end = clock();
 
+        // add time to total time
         total += (end - start);
 
+        // decrement iters
         iters_left -= iters_next;
     }
 

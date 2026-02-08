@@ -16,31 +16,32 @@ void work(int n)
 
   sum = 0;
   
+  // perform and measure row-major work
   start = clock();
   for (i = 0; i < n; i++)   // iterate over rows
     for (j = 0; j < n; j++) // iterate over columns
       sum += arr[i][j];
   end = clock();
 
-  // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
+  // output
   printf("Row Major: sum = %lf and Clock Ticks are %ld\n", sum, end - start);
 
   sum = 0;
 
+  // perform and measure column-major work
   start = clock();
   for (j = 0; j < n; j++) // iterate over columns
     for (i = 0; i < n; i++)   // iterate over rows
         sum += arr[i][j];
   end = clock();
 
-  // NOTE:  YOU'LL NEED TO PROVIDE MEANING TO end AND start
   printf("Column Major: sum = %lf and Clock Ticks are %ld\n", sum, end - start);
 }
 
 int main(int argc, char **argv)
 { 
   int n = 128;
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 2; i++) { // i has to stay small due to restrictions on stack size
     printf("For %d by %d matrix...\n", n, n);
     work(n);
     printf("\n");
