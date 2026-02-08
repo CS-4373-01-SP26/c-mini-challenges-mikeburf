@@ -65,14 +65,14 @@ int main() {
     }
     clock_t end = clock();
 
-    double seconds = (end - start) / CLOCKS_PER_SEC;
+    clock_t elapsed = (end - start); /// CLOCKS_PER_SEC;
 
     printf("Resultant vector:\n(");
     for (int i = 0; i < numrows - 1; i++) {
         printf("%d, ", out_vector[i]);
     }
     printf("%d)\n", out_vector[numrows - 1]);
-    printf("Calculation took %f seconds\n", seconds);
+    printf("Calculation took %d seconds\n", elapsed);
     return 0;
 
 }
