@@ -7,13 +7,12 @@
 #define ARG_BUFFER_SIZE 4096
 
 void fill_buffer(int* buffer, int size) {
-    srand(time(NULL));
     for (int i = 0; i< size; i++) {
         buffer[i] = rand() + 1; // avoid 0
     }
 }
 
-double benchmark_binary(int iters, double (*func) (double, double)) {
+double benchmark(int iters, double (*func) (double, double)) {
 
     int iters_left = iters;
 
@@ -23,43 +22,20 @@ double benchmark_binary(int iters, double (*func) (double, double)) {
 
     clock_t total = 0;
 
+    // to avoid huge buffers we do the measuring in chunks
     while(iters_left > 0) {
+        // run min(iters_left, ARG_BUFFER_SIZE) iters
         int iters_next = (iters_left < ARG_BUFFER_SIZE) ? iters_left : ARG_BUFFER_SIZE;
+
+        // fill both buffers
         fill_buffer(bufferA, iters_next);
         fill_buffer(bufferB, iters_next);
 
+        // run the function
         double result;
         clock_t start = clock();
         for (int i = 0; i < iters_next; i++) {
             result = func(bufferA[i], bufferB[i]);
-        }
-        clock_t end = clock();
-
-        total += (end - start);
-
-        iters_left -= iters_next;
-    }
-
-    return (double)total / CLOCKS_PER_SEC;
-}
-
-double benchmark_unary(int iters, double (*func) (double)){
-
-    int iters_left = iters;
-
-    // to avoid counting the cost of generating random numbers in the measured time, we pregenerate them
-    int bufferA[ARG_BUFFER_SIZE];
-
-    clock_t total = 0;
-
-    while(iters_left > 0) {
-        int iters_next = (iters_left < ARG_BUFFER_SIZE) ? iters_left : ARG_BUFFER_SIZE;
-        fill_buffer(bufferA, iters_next);
-
-        double result;
-        clock_t start = clock();
-        for (int i = 0; i < iters_next; i++) {
-            result = func(bufferA[i]);
         }
         clock_t end = clock();
 
@@ -80,45 +56,41 @@ double my_div(double n, double d) {
     return n / d;
 }
 
-double my_sqrt(double x) {
+double my_sqrt(double x, double trash) {
     return sqrt(x);
 }
 
-double my_sin(double x) {
+double my_sin(double x, double trash) {
     return sin(x);
 }
 
 
 int main() {
 
-    double seconds;
-    double avg_seconds;
+    double secs;
+    double secs_avg;
+
+    printf("Will run %d iters per op\n\n", BENCHMARK_ITERS);
 
     printf("Benchmarking multiplication...\n");
-    seconds = benchmark_binary(BENCHMARK_ITERS, my_mul);
-    avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
-
-    
+    secs = benchmark(BENCHMARK_ITERS, my_mul);
+    secs_avg = secs / BENCHMARK_ITERS;
+    printf("Ran in %f seconds, avg %.10f seconds/iter\n\n", secs, secs_avg);
 
     printf("Benchmarking division...\n");
-    seconds = benchmark_binary(BENCHMARK_ITERS, my_div);
-    avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
-
-    
+    secs = benchmark(BENCHMARK_ITERS, my_div);
+    secs_avg = secs / BENCHMARK_ITERS;
+    printf("Ran in %f seconds, avg %.10f seconds/iter\n\n", secs, secs_avg);
 
     printf("Benchmarking square root...\n");
-    seconds = benchmark_unary(BENCHMARK_ITERS, my_sqrt);
-    avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
-
-    
+    secs = benchmark(BENCHMARK_ITERS, my_sqrt);
+    secs_avg = secs / BENCHMARK_ITERS;
+    printf("Ran in %f seconds, avg %.10f seconds/iter\n\n", secs, secs_avg);
 
     printf("Benchmarking sine...\n");
-    seconds = benchmark_unary(BENCHMARK_ITERS, my_sin);
-    avg_seconds = seconds / BENCHMARK_ITERS;
-    printf("Ran %d iters in %f seconds, avg %.10f seconds per iter\n\n", BENCHMARK_ITERS, seconds, avg_seconds);
+    secs = benchmark(BENCHMARK_ITERS, my_sin);
+    secs_avg = secs / BENCHMARK_ITERS;
+    printf("Ran in %f seconds, avg %.10f seconds/iter\n\n", secs, secs_avg);
 
     return 0;
 }
