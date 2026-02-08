@@ -47,7 +47,7 @@ void work(int n)
 int main(int argc, char **argv)
 {
   int n = 128;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 7; i++) {
     printf("For %d by %d matrix...\n", n, n);
     work(n);
     printf("\n");
