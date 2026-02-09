@@ -16,6 +16,8 @@ void transform(char **string, int size, int (*transpose)(int, int)) {
         out[i] = (*string)[transpose(i, size)];
     }
 
+    out[size] = '\0';
+
     // free orig
     free(*string);
 
