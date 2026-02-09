@@ -14,7 +14,7 @@ int main() {
 
     while (1) {
         pi_approx = (peri_outer + peri_inner) / 2; // pi approximated with average of both polygons
-        printf("%d sides: p = %f\n, error:", sides, pi_approx);
+        printf("%d sides: p = %f\n", sides, pi_approx);
         sides *= 2;
         if (sides > max_sides) break;
 
