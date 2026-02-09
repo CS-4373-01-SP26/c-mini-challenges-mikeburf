@@ -46,5 +46,5 @@ int main() {
 
     transform(&string, size, reverse);
 
-    printf("%s", string);
+    printf("%s\n", string);
 }
