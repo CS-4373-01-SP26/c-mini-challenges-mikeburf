@@ -1,5 +1,6 @@
 #include <math.h>
 #include <stdio.h>
+#include <time.h>
 
 
 int main() {
@@ -12,6 +13,7 @@ int main() {
     double peri_outer = sqrt(12.0);
     double pi_approx;
 
+    clock_t start_all = clock();
     while (1) {
         pi_approx = (peri_outer + peri_inner) / 2; // pi approximated with average of both polygons
         printf("%d sides: p = %f\n", sides, pi_approx);
@@ -22,4 +24,7 @@ int main() {
         peri_outer = 2 / ((1 / peri_inner) + (1 / peri_outer));
         peri_inner = sqrt(peri_inner * peri_outer); // use of new peri_outer val is intentional
     }
+    clock_t end_all = clock();
+
+    printf("%d clock ticks to finish\n", end_all - start_all);
 }
